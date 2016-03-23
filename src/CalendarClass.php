@@ -136,8 +136,11 @@ class CalendarClass implements CalendarInterface {
 			}
 		}
 
+		$day_count--; // small problem with the rest of the days :(
+		$day_count--;
+
 		while ( $day_count > 1 && $day_count <= 7 ) { 
-			$arrayWeek[$day_count - count($arrayWeek)] = 'false';
+			$arrayWeek[$day_count - count($arrayWeek) + 2 ] = 'false';
 			$day_count++;
 		}
 
@@ -149,15 +152,15 @@ class CalendarClass implements CalendarInterface {
     }
 }
 
-$dayCurrent = new \DateTime();
-$calendar = new CalendarClass($dayCurrent);
-echo 'Day: ' . $calendar->getDay() . '<br>';
-echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
-echo 'FirstWeekDay: ' . $calendar->getFirstWeekDay() . '<br>';
-echo 'FirstWeek: ' . $calendar->getFirstWeek() . '<br>';
-echo 'NumberOfDaysInThisMonth: ' . $calendar->getNumberOfDaysInThisMonth() . '<br>';
-echo 'NumberOfDaysInPreviousMonth: ' . $calendar->getNumberOfDaysInPreviousMonth() . '<br>';
-print_r($calendar->getCalendar());
+// $dayCurrent = new \DateTime();
+// $calendar = new CalendarClass($dayCurrent);
+// echo 'Day: ' . $calendar->getDay() . '<br>';
+// echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
+// echo 'FirstWeekDay: ' . $calendar->getFirstWeekDay() . '<br>';
+// echo 'FirstWeek: ' . $calendar->getFirstWeek() . '<br>';
+// echo 'NumberOfDaysInThisMonth: ' . $calendar->getNumberOfDaysInThisMonth() . '<br>';
+// echo 'NumberOfDaysInPreviousMonth: ' . $calendar->getNumberOfDaysInPreviousMonth() . '<br>';
+// print_r($calendar->getCalendar());
 
 ?>
 
