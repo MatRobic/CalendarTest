@@ -79,6 +79,9 @@ class CalendarClass implements CalendarInterface {
      * @return int
      */
     public function getNumberOfDaysInPreviousMonth() {
+    	// if ($this->_month == 1) {
+    	// 	$this->_month == 12;
+    	// }
 		$daysInPreviousMonth = (int) cal_days_in_month(0, $this->_month-1, $this->_year);
 
 		return $daysInPreviousMonth;
@@ -103,18 +106,20 @@ class CalendarClass implements CalendarInterface {
     	$first_week = $this->getFirstWeek();
 
 		$day_count = 1;		
-		$day_num = 0;
+		$day_num = 1;
 		$arrayWeek = array();
 
 		$stack = array();
 		for ( $i = 0; $i < 7; $i++ ) { 
 			$number = $day - $i - $day_of_the_week;
 		    array_push($stack, $number);
-		}	
+		}
 
-		while ( $day_of_the_week > 0 && $day_count ) {
-			$arrayWeek[$days_in_previous_month - $day_num] = 'false';
-			$day_of_the_week--;
+		$daysBefore = $first_day -1;
+		for($i=$daysBefore;$i>0;$i--)
+		{
+		    $arrayWeek[$days_in_previous_month - $i + 1] = 'false';		    
+		    $day_count++;	
 		}
 		
 		while ( $day_num <= $days_in_month ) {
@@ -136,8 +141,8 @@ class CalendarClass implements CalendarInterface {
 			}
 		}
 
-		$dayLeft = 7 - count($arrayWeek);
-		for($i=0;$i<$dayLeft;$i++)
+		$daysAfter = 7 - count($arrayWeek);
+		for($i=0;$i<$daysAfter;$i++)
 		{
 		    $arrayWeek[$i+1] = 'false';
 		}
@@ -149,7 +154,8 @@ class CalendarClass implements CalendarInterface {
     }
 }
 
-$dayCurrent = new \DateTime();
+// $dayCurrent = new \DateTime();
+$dayCurrent = new \DateTime("2016-09-12");
 $calendar = new CalendarClass($dayCurrent);
 echo 'Day: ' . $calendar->getDay() . '<br>';
 echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
