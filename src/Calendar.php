@@ -6,7 +6,7 @@ require('CalendarInterface.php');
 
 use DateTimeInterface;
 
-class CalendarClass implements CalendarInterface {
+class Calendar implements CalendarInterface {
 
 	private $_datetime;
 	private $_month;
@@ -164,7 +164,7 @@ class CalendarClass implements CalendarInterface {
 
 // $dayCurrent = new \DateTime();
 $dayCurrent = new \DateTime("2015-12-31");
-$calendar = new CalendarClass($dayCurrent);
+$calendar = new Calendar($dayCurrent);
 echo 'Day: ' . $calendar->getDay() . '<br>';
 echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
 echo 'FirstWeekDay: ' . $calendar->getFirstWeekDay() . '<br>';
