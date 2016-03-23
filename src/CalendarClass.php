@@ -79,10 +79,12 @@ class CalendarClass implements CalendarInterface {
      * @return int
      */
     public function getNumberOfDaysInPreviousMonth() {
-    	// if ($this->_month == 1) {
-    	// 	$this->_month == 12;
-    	// }
-		$daysInPreviousMonth = (int) cal_days_in_month(0, $this->_month-1, $this->_year);
+    	if ($this->_month == 1) {
+    		$daysInPreviousMonth = (int) cal_days_in_month(0, 12, $this->_year);
+    	}
+    	else {
+    		$daysInPreviousMonth = (int) cal_days_in_month(0, $this->_month-1, $this->_year);
+    	}		
 
 		return $daysInPreviousMonth;
     }
@@ -133,29 +135,35 @@ class CalendarClass implements CalendarInterface {
 			$day_num++; 
 			$day_count++;
 
-			if ( $day_count > 7 ) {
+			if ( $day_count > 7 ) {				
 				$array[$first_week] = $arrayWeek;
-				$first_week++;
+				if ($first_week > 52) {
+					$first_week = 1;
+				}
+				else {
+					$first_week++;
+				}				
 				$arrayWeek = NULL;
 				$day_count = 1;
 			}
 		}
 
 		$daysAfter = 7 - count($arrayWeek);
-		for($i=0;$i<$daysAfter;$i++)
-		{
-		    $arrayWeek[$i+1] = 'false';
-		}
-		$array[$first_week] = $arrayWeek;
-		$first_week++;
-		$arrayWeek = NULL;
+		if ($daysAfter != 7) {
+			for($i=0;$i<$daysAfter;$i++) {
+			    $arrayWeek[$i+1] = 'false';
+			}
+			$array[$first_week] = $arrayWeek;
+			$first_week++;
+			$arrayWeek = NULL;
+		}		
 
 		return $array;
     }
 }
 
 // $dayCurrent = new \DateTime();
-$dayCurrent = new \DateTime("2016-09-12");
+$dayCurrent = new \DateTime("2016-02-01");
 $calendar = new CalendarClass($dayCurrent);
 echo 'Day: ' . $calendar->getDay() . '<br>';
 echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
