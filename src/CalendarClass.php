@@ -28,7 +28,7 @@ class CalendarClass implements CalendarInterface {
      * @return int
      */
     public function getDay() {
-    	return (int) date('d', strtotime($this->_datetime)); 
+    	return (int) date('d', $this->_datetime); 
     }
 
     /**
@@ -37,7 +37,7 @@ class CalendarClass implements CalendarInterface {
      * @return int
      */
     public function getWeekDay() {
-    	return (int) date('N', strtotime($this->_datetime)); 
+    	return (int) date('N', $this->_datetime); 
     }
 
     /**
@@ -103,7 +103,7 @@ class CalendarClass implements CalendarInterface {
     	$first_week = $this->getFirstWeek();
 
 		$day_count = 1;		
-		$day_num = 1;
+		$day_num = 0;
 		$arrayWeek = array();
 
 		$stack = array();
@@ -112,8 +112,8 @@ class CalendarClass implements CalendarInterface {
 		    array_push($stack, $number);
 		}	
 
-		while ( $day_of_the_week > 0 ) {
-			$arrayWeek[$days_in_previous_month - $day_num + 1 ] = 'false';
+		while ( $day_of_the_week > 0 && $day_count ) {
+			$arrayWeek[$days_in_previous_month - $day_num] = 'false';
 			$day_of_the_week--;
 		}
 		
@@ -128,7 +128,7 @@ class CalendarClass implements CalendarInterface {
 			$day_num++; 
 			$day_count++;
 
-			if ( $day_count >= 7 ) {
+			if ( $day_count > 7 ) {
 				$array[$first_week] = $arrayWeek;
 				$first_week++;
 				$arrayWeek = NULL;
@@ -149,15 +149,15 @@ class CalendarClass implements CalendarInterface {
     }
 }
 
-// $dayCurrent = new \DateTime();
-// $calendar = new CalendarClass($dayCurrent);
-// echo 'Day: ' . $calendar->getDay() . '<br>';
-// echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
-// echo 'FirstWeekDay: ' . $calendar->getFirstWeekDay() . '<br>';
-// echo 'FirstWeek: ' . $calendar->getFirstWeek() . '<br>';
-// echo 'NumberOfDaysInThisMonth: ' . $calendar->getNumberOfDaysInThisMonth() . '<br>';
-// echo 'NumberOfDaysInPreviousMonth: ' . $calendar->getNumberOfDaysInPreviousMonth() . '<br>';
-// print_r($calendar->getCalendar());
+$dayCurrent = new \DateTime();
+$calendar = new CalendarClass($dayCurrent);
+echo 'Day: ' . $calendar->getDay() . '<br>';
+echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
+echo 'FirstWeekDay: ' . $calendar->getFirstWeekDay() . '<br>';
+echo 'FirstWeek: ' . $calendar->getFirstWeek() . '<br>';
+echo 'NumberOfDaysInThisMonth: ' . $calendar->getNumberOfDaysInThisMonth() . '<br>';
+echo 'NumberOfDaysInPreviousMonth: ' . $calendar->getNumberOfDaysInPreviousMonth() . '<br>';
+print_r($calendar->getCalendar());
 
 ?>
 
