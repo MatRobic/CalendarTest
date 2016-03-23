@@ -163,7 +163,7 @@ class CalendarClass implements CalendarInterface {
 }
 
 // $dayCurrent = new \DateTime();
-$dayCurrent = new \DateTime("2016-02-01");
+$dayCurrent = new \DateTime("2015-12-31");
 $calendar = new CalendarClass($dayCurrent);
 echo 'Day: ' . $calendar->getDay() . '<br>';
 echo 'WeekDay: ' . $calendar->getWeekDay() . '<br>';
